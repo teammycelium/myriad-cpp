@@ -1,31 +1,35 @@
-#include <Magnum/DefaultFramebuffer.h>
-#include <Magnum/Platform/GlfwApplication.h>
+#include "Common/Args.hxx"
+#include "Common/Plog/Log.h"
 
-#include <Magnum/Context.h>
-#include <Magnum/Renderer.h>
-#include <Magnum/Version.h>
+int main(int argc, char **argv) {
 
-using namespace Magnum;
+    plog::init(plog::debug, "logs/myriad.log");
 
-class Myriad : public Platform::Application {
-public:
-    explicit Myriad(const Arguments &arguments);
+    args::ArgumentParser parser("This is a test program.", "This goes after the options.");
+    args::HelpFlag help(parser, "help", "Display this help menu", {'h', "help"});
 
-private:
-    void drawEvent() override;
-};
+    args::Flag server(parser, "server", "Runs Myriad as a server", {'s', "server"});
 
-Myriad::Myriad(const Arguments &arguments) : Platform::Application{arguments} {
-    Debug() << "Hello! This application is running on" << Context::current().version() << "using"
-            << Context::current().rendererString();
+    try {
+        // Args is weird
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+        parser.ParseCLI(argc, argv);
+#pragma clang diagnostic pop
+    } catch (args::Help) {
+        LOG(plog::info) << parser;
+        return 0;
+    } catch (args::ParseError &e) {
+        LOG(plog::error) << e.what() << std::endl;
+        LOG(plog::error) << parser;
+        return 1;
+    }
+
+    if (server) {
+
+    } else {
+
+    }
+
+    return 0;
 }
-
-void Myriad::drawEvent() {
-    defaultFramebuffer.clear(FramebufferClear::Color);
-
-    /* TODO: Add your drawing code here */
-
-    swapBuffers();
-}
-
-MAGNUM_APPLICATION_MAIN(Myriad)

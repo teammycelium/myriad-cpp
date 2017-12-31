@@ -56,14 +56,17 @@
 </div>
 
 ## Table Of Contents
-  * [Build]()
-    * [Dependencies]()
-    * [Steps]()
-  * [Contributors]()
-  * [Todo]()
+
+  * [Build](#build)
+    * [Dependencies](#dependencies)
+    * [Steps](#steps)
+  * [Contributors](#contributors)
+  * [Todo](#todo)
 
 ## Build
+
 ### Dependencies
+
 **NOTE: Windows users need MSYS2 to build Myriad. Everything must be done within MSYS2.**
   * Windows (MSYS2)
     *Be sure to update MSYS2 with* ```pacman -Syu``` *(It may be need to be ran multiple time)*
@@ -71,6 +74,7 @@
     pacman -S mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-python3 mingw-w64-x86_64-glfw mingw-w64-x86_64-libpng
     ```
 ### Steps
+
   * Project
       ```bash
       mkdir myriad-build && cd myriad-build
@@ -90,7 +94,7 @@
       git clone https://github.com/mosra/magnum.git
       cd magnum
       mkdir -p build && cd build
-      cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DWITH_GLFWAPPLICATION=ON -DWITH_AUDIO=ON -DWITH_PRIMITIVES=ON -DWITH_SHADERS=ON -DWITH_SHAPES=ON -DWITH_TEXT=ON -G "MSYS Makefiles"
+      cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DWITH_GLFWAPPLICATION=ON -DWITH_WINDOWLESSCGLAPPLICATION=ON -DWITH_WINDOWLESSGLXAPPLICATION=ON -DWITH_WINDOWLESSWGLAPPLICATION=ON -DWITH_WINDOWLESSWINDOWSEGLAPPLICATION=ON -DWITH_AUDIO=ON -DWITH_PRIMITIVES=ON -DWITH_SHADERS=ON -DWITH_SHAPES=ON -DWITH_TEXT=ON -G "MSYS Makefiles"
       make -j
       make install
       ```
@@ -111,6 +115,17 @@
       cd magnum-extras
       mkdir -p build && cd build
       cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DWITH_UI=ON -G "MSYS Makefiles"
+      make -j
+      make install
+      ```
+  
+  * Myriad
+      ```bash
+      cd ../..
+      git clone https://github.com/teammycelium/myriad.git
+      cd myriad
+      mkdir -p build && cd build
+      cmake .. -G "MSYS Makefiles"
       make -j
       make install
       ```
@@ -144,9 +159,14 @@
 
   * [ ] API
   * [ ] Blocks
+    * [ ] Logs
+    * [ ] Ores
+    * [ ] Planks
   * [ ] Commands
   * [ ] Compatibly
   * [ ] Dimensions
   * [ ] Entities
+    * [ ] Mobs
   * [ ] Generation
+    * [ ] Biomes
   * [ ] Items
